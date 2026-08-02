@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Tic Tac Toe</title>
 
 <style>
@@ -39,7 +40,6 @@ h1{
     align-items:center;
     font-size:45px;
     border-radius:10px;
-    cursor:pointer;
 }
 
 button{
@@ -50,8 +50,8 @@ button{
     border-radius:8px;
     background:#ffcc00;
 }
-</style>
 
+</style>
 </head>
 
 <body>
@@ -80,13 +80,20 @@ button{
 <script>
 
 let cells=document.querySelectorAll(".cell");
+
+let board=[
+"","","",
+"","","",
+"","",""
+];
+
 let player="X";
 let game=true;
-let board=["","","","","","","","",""];
+
 
 function play(i){
 
-if(board[i]!="" || !game)
+if(board[i]!="" || game==false)
 return;
 
 board[i]=player;
@@ -94,10 +101,12 @@ cells[i].innerHTML=player;
 
 check();
 
-player=player=="X"?"O":"X";
+if(game){
+player = player=="X" ? "O" : "X";
 
 document.getElementById("status").innerHTML=
 "Player "+player+" Turn";
+}
 
 }
 
@@ -116,14 +125,18 @@ let win=[
 ];
 
 
-for(let a of win){
+for(let w of win){
 
-if(board[a[0]] &&
-board[a[0]]==board[a[1]] &&
-board[a[1]]==board[a[2]]){
+let a=w[0];
+let b=w[1];
+let c=w[2];
+
+if(board[a] &&
+board[a]==board[b] &&
+board[b]==board[c]){
 
 document.getElementById("status").innerHTML=
-"Player "+board[a[0]]+" Wins!";
+"Player "+board[a]+" Wins!";
 
 game=false;
 return;
@@ -132,9 +145,13 @@ return;
 
 }
 
+
 if(!board.includes("")){
+
 document.getElementById("status").innerHTML="Draw!";
+
 game=false;
+
 }
 
 }
@@ -142,13 +159,21 @@ game=false;
 
 function restart(){
 
-board=["","","","","","","","",""];
+board=[
+"","","",
+"","","",
+"","",""
+];
+
 player="X";
 game=true;
 
-cells.forEach(c=>c.innerHTML="");
+cells.forEach(cell=>{
+cell.innerHTML="";
+});
 
-document.getElementById("status").innerHTML="Player X Turn";
+document.getElementById("status").innerHTML=
+"Player X Turn";
 
 }
 

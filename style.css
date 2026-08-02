@@ -9,7 +9,11 @@ body{
     margin:0;
     font-family:Arial, sans-serif;
     color:white;
-    background:#0f0f0f;
+   background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url("background.jpg");
+background-size:cover;
+background-position:center;
     min-height:100vh;
 }
     background:#0d1117;

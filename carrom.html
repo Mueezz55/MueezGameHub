@@ -2,106 +2,207 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrom Game</title>
+<title>Real Carrom</title>
 
 <style>
 body{
-    margin:0;
-    background:#121212;
-    color:white;
-    font-family:Arial;
-    text-align:center;
+ margin:0;
+ background:#121212;
+ color:white;
+ text-align:center;
+ font-family:Arial;
 }
 
-h1{
-    color:#ffcc00;
-}
-
-.board{
-    width:350px;
-    height:350px;
-    margin:20px auto;
-    background:#c89b5b;
-    border:10px solid #5a3518;
-    border-radius:15px;
-    position:relative;
-}
-
-.hole{
-    width:35px;
-    height:35px;
-    background:black;
-    border-radius:50%;
-    position:absolute;
-}
-
-.h1{top:5px;left:5px;}
-.h2{top:5px;right:5px;}
-.h3{bottom:5px;left:5px;}
-.h4{bottom:5px;right:5px;}
-
-.coin{
-    width:30px;
-    height:30px;
-    background:white;
-    border-radius:50%;
-    position:absolute;
-    top:160px;
-    left:160px;
-}
-
-.red{
-    background:red;
-    top:140px;
-    left:160px;
+canvas{
+ background:#d19a5a;
+ border:10px solid #5a3518;
+ border-radius:15px;
+ margin-top:20px;
 }
 
 button{
-    padding:12px 25px;
-    font-size:18px;
-    border:none;
-    border-radius:8px;
-    background:#ffcc00;
+ padding:12px 25px;
+ background:#ffcc00;
+ border:none;
+ border-radius:8px;
+ font-size:18px;
 }
 </style>
-
 </head>
 
 <body>
 
 <h1>🎯 Carrom Game</h1>
 
-<div class="board">
+<h3 id="score">Score: 0</h3>
 
-<div class="hole h1"></div>
-<div class="hole h2"></div>
-<div class="hole h3"></div>
-<div class="hole h4"></div>
+<canvas id="board" width="400" height="400"></canvas>
 
-<div class="coin"></div>
-<div class="coin red"></div>
+<p>Striker ko drag karke chhodo</p>
 
-</div>
-
-<button onclick="strike()">Strike</button>
-
-<p id="msg">Click Strike</p>
+<button onclick="restart()">Restart</button>
 
 
 <script>
 
-function strike(){
+let canvas=document.getElementById("board");
+let ctx=canvas.getContext("2d");
 
-let x=Math.floor(Math.random()*250)+50;
-let y=Math.floor(Math.random()*250)+50;
+let striker={
+x:200,
+y:350,
+r:15
+};
 
-document.querySelector(".coin").style.left=x+"px";
-document.querySelector(".coin").style.top=y+"px";
+let coins=[
+{x:200,y:200,r:12},
+{x:230,y:200,r:12},
+{x:170,y:200,r:12}
+];
 
-document.getElementById("msg").innerHTML=
-"Coin moved!";
+let score=0;
+
+let dragging=false;
+let startX,startY;
+
+
+function draw(){
+
+ctx.clearRect(0,0,400,400);
+
+
+ctx.fillStyle="black";
+
+let holes=[
+[20,20],
+[380,20],
+[20,380],
+[380,380]
+];
+
+holes.forEach(h=>{
+ctx.beginPath();
+ctx.arc(h[0],h[1],20,0,Math.PI*2);
+ctx.fill();
+});
+
+
+ctx.fillStyle="white";
+ctx.beginPath();
+ctx.arc(striker.x,striker.y,striker.r,0,Math.PI*2);
+ctx.fill();
+
+
+ctx.fillStyle="red";
+
+coins.forEach(c=>{
+ctx.beginPath();
+ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.fill();
+});
+
 
 }
+
+
+canvas.onmousedown=function(e){
+
+dragging=true;
+startX=e.offsetX;
+startY=e.offsetY;
+
+}
+
+
+canvas.onmouseup=function(e){
+
+if(dragging){
+
+let dx=startX-e.offsetX;
+let dy=startY-e.offsetY;
+
+striker.x+=dx;
+striker.y+=dy;
+
+
+coins.forEach(c=>{
+
+let d=Math.hypot(striker.x-c.x,striker.y-c.y);
+
+if(d<30){
+
+c.x+=dx;
+c.y+=dy;
+
+}
+
+});
+
+
+checkPocket();
+
+draw();
+
+}
+
+dragging=false;
+
+}
+
+
+function checkPocket(){
+
+coins=coins.filter(c=>{
+
+let holes=[
+[20,20],
+[380,20],
+[20,380],
+[380,380]
+];
+
+for(let h of holes){
+
+if(Math.hypot(c.x-h[0],c.y-h[1])<20){
+
+score++;
+document.getElementById("score").innerHTML=
+"Score: "+score;
+
+return false;
+
+}
+
+}
+
+return true;
+
+});
+
+}
+
+
+function restart(){
+
+score=0;
+
+striker.x=200;
+striker.y=350;
+
+coins=[
+{x:200,y:200,r:12},
+{x:230,y:200,r:12},
+{x:170,y:200,r:12}
+];
+
+document.getElementById("score").innerHTML="Score: 0";
+
+draw();
+
+}
+
+
+draw();
 
 </script>
 

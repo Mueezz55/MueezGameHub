@@ -1,1 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrom Game</title>
 
+<style>
+body{
+    margin:0;
+    background:#121212;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+h1{
+    color:#ffcc00;
+}
+
+.board{
+    width:350px;
+    height:350px;
+    margin:20px auto;
+    background:#c89b5b;
+    border:10px solid #5a3518;
+    border-radius:15px;
+    position:relative;
+}
+
+.hole{
+    width:35px;
+    height:35px;
+    background:black;
+    border-radius:50%;
+    position:absolute;
+}
+
+.h1{top:5px;left:5px;}
+.h2{top:5px;right:5px;}
+.h3{bottom:5px;left:5px;}
+.h4{bottom:5px;right:5px;}
+
+.coin{
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:160px;
+    left:160px;
+}
+
+.red{
+    background:red;
+    top:140px;
+    left:160px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#ffcc00;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎯 Carrom Game</h1>
+
+<div class="board">
+
+<div class="hole h1"></div>
+<div class="hole h2"></div>
+<div class="hole h3"></div>
+<div class="hole h4"></div>
+
+<div class="coin"></div>
+<div class="coin red"></div>
+
+</div>
+
+<button onclick="strike()">Strike</button>
+
+<p id="msg">Click Strike</p>
+
+
+<script>
+
+function strike(){
+
+let x=Math.floor(Math.random()*250)+50;
+let y=Math.floor(Math.random()*250)+50;
+
+document.querySelector(".coin").style.left=x+"px";
+document.querySelector(".coin").style.top=y+"px";
+
+document.getElementById("msg").innerHTML=
+"Coin moved!";
+
+}
+
+</script>
+
+</body>
+</html>

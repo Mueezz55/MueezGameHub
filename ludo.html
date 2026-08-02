@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo Game</title>
 
+<style>
+body{
+    margin:0;
+    background:#121212;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+h1{
+    color:#ffcc00;
+}
+
+.board{
+    width:330px;
+    height:330px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+}
+
+.box{
+    background:#333;
+    border:2px solid white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+}
+
+button{
+    padding:12px 25px;
+    margin:10px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#ffcc00;
+}
+
+#dice{
+    font-size:25px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎲 Ludo Game</h1>
+
+<div id="dice">Dice: 1</div>
+
+<div class="board">
+<div class="box">🏠</div>
+<div class="box"></div>
+<div class="box">🏠</div>
+
+<div class="box"></div>
+<div class="box">⭐</div>
+<div class="box"></div>
+
+<div class="box">🏠</div>
+<div class="box"></div>
+<div class="box">🏠</div>
+</div>
+
+<button onclick="roll()">Roll Dice</button>
+
+<p id="msg">Click Roll Dice</p>
+
+<script>
+
+function roll(){
+
+let num=Math.floor(Math.random()*6)+1;
+
+document.getElementById("dice").innerHTML=
+"Dice: "+num;
+
+document.getElementById("msg").innerHTML=
+"You got "+num+" steps";
+
+}
+
+</script>
+
+</body>
+</html>

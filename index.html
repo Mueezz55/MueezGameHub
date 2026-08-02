@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mueez Game Hub</title>
 
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0d1117;
+color:white;
+text-align:center;
+}
+
+header{
+padding:25px;
+background:#161b22;
+box-shadow:0 0 15px cyan;
+}
+
+header h1{
+font-size:42px;
+color:cyan;
+}
+
+header p{
+margin-top:10px;
+color:#ccc;
+}
+
+.games{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+padding:40px;
+}
+
+.card{
+background:#161b22;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 12px cyan;
+transition:.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+button{
+margin-top:15px;
+padding:10px 25px;
+border:none;
+background:cyan;
+font-weight:bold;
+border-radius:8px;
+cursor:pointer;
+}
+
+footer{
+padding:20px;
+background:#161b22;
+margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>🎮 Mueez Game Hub</h1>
+<p>Play Free Games Online</p>
+</header>
+
+<section class="games">
+
+<div class="card">
+<h2>2048</h2>
+<p>Coming Soon</p>
+<button>Play</button>
+</div>
+
+<div class="card">
+<h2>Tic Tac Toe</h2>
+<p>Coming Soon</p>
+<button>Play</button>
+</div>
+
+<div class="card">
+<h2>Ludo</h2>
+<p>Coming Soon</p>
+<button>Play</button>
+</div>
+
+<div class="card">
+<h2>Carrom</h2>
+<p>Coming Soon</p>
+<button>Play</button>
+</div>
+
+</section>
+
+<footer>
+© 2026 Mueez Game Hub
+</footer>
+
+</body>
+</html>
